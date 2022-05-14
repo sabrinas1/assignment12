@@ -54,6 +54,43 @@ function td(content, className="")
 		<input type="radio"  name="p_or_d" value = "pickup" checked="checked"/>Pickup  
 		<input type="radio"  name='p_or_d' value = 'delivery'/>Delivery
 	</p>
+	<?php
+	$server = "localhost";
+	$userid = "ulg8kcxxl7e4g";
+	$pw = "ujgfdgwgagux"; 
+	$db= "db9qmhvsckkckt";
+	
+	// Create connection
+	$conn = new mysqli($server, $userid, $pw );
+	
+	// Check connection
+	if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+	}
+	echo "Connected successfully<br>";
+	
+	//select the database
+	$conn->select_db($db);
+	
+	//run a query
+	$sql = "SELECT ItemName, Cost FROM Jade Delight Menu";
+	$result = $conn->query($sql);
+	
+	//get results
+	if ($result->num_rows > 0)
+	{
+	while($row = $result->fetch_assoc())
+	{
+	echo $row["Item Name"]. " " . $row["Cost"]. "<br>";
+	}
+	}
+	else
+	echo "no results";
+	
+	//close the connection
+	$conn->close();
+
+	?>
 	<table border="0" cellpadding="3">
   	<tr>
     	<th>Select Item</th>
@@ -89,5 +126,8 @@ function td(content, className="")
 	<input type = "button" value = "Submit Order" />
 
 </form>
+<?php
+	//idk
+?>
 </body>
 </html>
